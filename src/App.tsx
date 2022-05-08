@@ -4,7 +4,7 @@ import ProductTable from "./ProductTable"
 import { useContext, useState } from "react"
 import React from "react"
 
-const PRODUCTS = [
+const PRODUCT = [
   {name:"Маргарита",price:490,stocked:true,image:""},
   {name:"Охотничья",price:600,stocked:true,image:""},
   {name:"Грибная",price:450,stocked:false,image:""},
@@ -12,6 +12,9 @@ const PRODUCTS = [
   {name:"Happy pizza!",price:700,stocked:true,image:""}
 ]
 
+const PRODUCTS = PRODUCT.map((e)=>{
+  return {name:e.name,price:e.price,stocked:e.stocked,image:e.image,index:0}
+})
 
 export const FilterTextContext = React.createContext({
   filterText:"",

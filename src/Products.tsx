@@ -27,7 +27,7 @@ function Product(props:any){
         <div className="card">
         <div className="title">{props.product.name}</div>
         <div className="price">{props.product.price}</div>
-        <button onClick={()=>setupCart(props.product)}>Добавить</button>
+        <button onClick={()=>setupCart(props.product,"add")}>Добавить</button>
         </div>
     </li>
     )
