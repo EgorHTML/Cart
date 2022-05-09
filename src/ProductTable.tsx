@@ -1,49 +1,53 @@
-import React, {useState } from "react"
+import React, {useReducer, useState } from "react"
 import Cart from "./Cart"
 import Products from "./Products"
 
-export const CartContext = React.createContext({
-    products:[{name:"string",price:"number",stocked:"boolean",image:"image",index:"number"}],
-    setupCart:(product:any,type?:string)=>{}
+type ProductCart = {name:string,price:number,stocked:boolean,image:string,index:number}
+
+export const CartContext = React.createContext<{productsCart:ProductCart[],dispatch:(action:{type:string,element:ProductCart})=>void}>({
+    productsCart:[],
+    dispatch:()=>{}
 })
 
-function ProductTable(){
-  const [products,setup] = useState([])
+const ProductTable = () => {
+    const [productsCart,dispatch] = useReducer(reducer,[])
+      
+    console.log(productsCart);
+      return <div className="product__table">
+        <CartContext.Provider value={{productsCart,dispatch}}>
+          <Products/>
+          <Cart/>
+          </CartContext.Provider>
+         
+      </div>
+  }
 
-    function setupCart(element:any,type?:string){
-        switch(type){
-            case "add":
-                if(element.index === 0){
-                    element.index = 1
-                    const arr = products.concat(element)
-                    setup(arr)
-                }else{
-                    element.index+=1
-                    const arr = products.concat()
-                    setup(arr)
-                }
-                break
-            case "delete":
-                if(element.index === 1){
-                    const arr = products.filter((e:any)=>e.name!==element.name)
-                    element.index = 0
-                    setup(arr)
-                }else{
-                    element.index-=1
-                    setup(products.concat())
-                    
-                }
-                break
-        }
+
+function reducer(productsCart:ProductCart[],action:{type:string,element:ProductCart}):ProductCart[]{
+    switch(action.type){
+        case "add":
+            if(action.element.index === 0){
+                action.element.index = 1
+                productsCart.push(action.element)
+                return productsCart
+            }else{
+                action.element.index +=1
+                return productsCart
+            }
+        case "delete":
+            if(action.element.index === 1){
+                const arr = productsCart.filter((e:ProductCart)=>e.name!==action.element.name)
+                action.element.index = 0
+                return arr
+            }else{
+                action.element.index-=1
+                return productsCart
+            }
+        default:
+            throw new Error("none type")
     }
-
-    return <div className="product__table">
-      <CartContext.Provider value={{products,setupCart}}>
-        <Products/>
-        <Cart />
-        </CartContext.Provider>
-       
-    </div>
 }
+
+
 
 export default ProductTable

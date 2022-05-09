@@ -22,12 +22,12 @@ function Products(props:any){
 
 function Product(props:any){
     return <CartContext.Consumer>{ 
-    ({products,setupCart})=>(
+    ({dispatch})=>(
     <li>
         <div className="card">
         <div className="title">{props.product.name}</div>
         <div className="price">{props.product.price}</div>
-        <button onClick={()=>setupCart(props.product,"add")}>Добавить</button>
+        <button onClick={()=>dispatch({type:"add",element:props.product})}>Добавить</button>
         </div>
     </li>
     )

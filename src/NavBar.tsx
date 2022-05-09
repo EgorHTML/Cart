@@ -11,7 +11,7 @@ function SearchInput(){
     return <FilterTextContext.Consumer>
          {
              ({setText})=>(
-                <input onChange={setText} className="search__input" type="text" />
+                <input onChange={setText} className="search__input" type="text" placeholder="Поиск..." />
              )
          }
          </FilterTextContext.Consumer>

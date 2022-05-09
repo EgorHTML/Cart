@@ -1,20 +1,9 @@
 import "./styles/index.css"
 import NavBar from "./NavBar"
 import ProductTable from "./ProductTable"
-import { useContext, useState } from "react"
+import { useState } from "react"
 import React from "react"
-
-const PRODUCT = [
-  {name:"Маргарита",price:490,stocked:true,image:""},
-  {name:"Охотничья",price:600,stocked:true,image:""},
-  {name:"Грибная",price:450,stocked:false,image:""},
-  {name:"Датская",price:470,stocked:true,image:""},
-  {name:"Happy pizza!",price:700,stocked:true,image:""}
-]
-
-const PRODUCTS = PRODUCT.map((e)=>{
-  return {name:e.name,price:e.price,stocked:e.stocked,image:e.image,index:0}
-})
+import { PRODUCTS } from "./data.js"
 
 export const FilterTextContext = React.createContext({
   filterText:"",
@@ -22,12 +11,10 @@ export const FilterTextContext = React.createContext({
 })
 export const ProductsContext = React.createContext(PRODUCTS)
 
-function App() {
+const App = () => {
   const [filterText,setFilterText] = useState("")
-  const a = useContext(FilterTextContext)
   function setText(event:any){
     setFilterText(event.target.value)
-    a.filterText = event.target.value
   }
   
   return (
