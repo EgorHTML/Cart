@@ -6,9 +6,7 @@ const Cart = () => {
     const {productsCart,dispatch} = useContext(CartContext)
     
     const productSets = productsCart.map((element:ProductCart,i) => {
-        return <li className="cart__item" key={i}>
-            <CartItem element={element} dispatch = {dispatch}/>
-        </li>
+        return <CartItem key={i} element={element} dispatch = {dispatch}/>
     } )
     
     if(productsCart.length === 0){
@@ -24,13 +22,13 @@ const Cart = () => {
 }
 
 const CartItem = (props:{element:ProductCart,dispatch:any}) => {
-    return (<>
+    return (<li className="cart__item">
         <div className="info__cart__item">
         <div className="title__cart">{props.element.name}</div>
         <div className="index__cart">{props.element.index}(шт)</div>
         </div>
         <div className="price__item">цена:{props.element.price} руб.</div>
         <button className="delete__btn" onClick={()=>props.dispatch({type:"delete",element:props.element})}>Удалить</button>
-    </>)
+        </li>)
 }
 export default Cart
