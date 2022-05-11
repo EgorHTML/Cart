@@ -2,13 +2,14 @@ import { useContext } from "react"
 import { ProductsContext,FilterTextContext } from "./App"
 import {CartContext} from "./ProductTable"
 
-function Products(props:any){
+const Products = (props:any) => {
     const products = useContext(ProductsContext)
     const {filterText} = useContext(FilterTextContext)
 
     const FilteredProducts = products.map((product,i)=>{
-        let current = product.name.toLowerCase().split(" ").filter(l=>l!==" ").join("")
-        let filter = filterText.toLowerCase().split(" ").filter(l=>l!==" ").join("")
+        let current = product.name.toLowerCase().split(" ").join("")
+        let filter = filterText.toLowerCase().split(" ").join("")
+
         if(current.indexOf(filter) === -1){
             return
         }
@@ -18,7 +19,6 @@ function Products(props:any){
 
     return <ul className="products">{FilteredProducts}</ul>
 }
-
 
 function Product(props:any){
     return <CartContext.Consumer>{ 
